@@ -1,0 +1,40 @@
+table,th,td{
+    border-collapse: collapse;
+    border:1px solid;
+    white-space: nowrap
+}
+
+caption{
+    font-size: 25px;
+}
+
+th,td{
+    height:52px;
+    font-size:30px;
+    text-align: right;
+}
+
+#mainTable th{
+    font-size:25px
+}
+#mainTable tr:nth-last-child(1) td{
+    border-top: double 5px;
+}
+
+#mainTable input{
+    height:45px;
+    font-size:30px;
+    width: 120px;
+    text-align: right;
+}
+
+#shippingFee td,tr{
+    font-size: 25px;
+    height:27px;
+    width: 120px;
+}
+#shippingFee td:nth-child(1){
+    font-size: 20px;
+    width: auto;
+    text-align: left;
+}
