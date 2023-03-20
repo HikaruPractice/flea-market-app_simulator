@@ -7,121 +7,103 @@
     <script src="index.js"></script>
     <link rel="stylesheet" href="index.css">
 </head>
+
 <body>
-<table id="mainTable">
-    <caption>フリマコストシミュレーション</caption>
-    <tr>
-        <th>
-            
-        </th>
-        <th>
-            メルカリ
-        </th>
-        <th>
-            ラクマ
-        </th>
-    </tr>
-    <tr>
-        <td>
-            販売価格
-        </td>
-        <td>
-            <input>
-        </td>
-        <td>
-            <input>
-        </td>
-    </tr>
-    <tr>
-        <td>
-            送料
-        </td>
-        <td>
-            <input>
-        </td>
-        <td>
-            <input>
-        </td>
-    </tr>
-    <tr>
-        <td>
-            手数料
-        </td>
-        <td>
-
-        </td>
-        <td>
-
-        </td>
-    </tr>
-    <tr>
-        <td>
-            残高
-        </td>
-        <td>
-
-        </td>
-        <td>
-
-        </td>
-    </tr>
-</table>
-<table id="shippingFee">
-    <caption>送料表</caption>
-    <tbody></tbody>
-    <script>
-        const shippingFeeTable = document.getElementById('shippingFee').getElementsByTagName('tbody')[0];
-        const shippingFeeList = [
-            ['','','メルカリ','ラクマ'],
-            ['yp','ゆうパケット','230','180'],
-            ['ypph','ゆうパケット\nポスト(箱)','280','175'],
-            ['ypps','ゆうパケット\nポスト(シール)','220','175'],
-            ['ypp','ゆうパケット\nプラス','455','380'],
-            ['y60','ゆうパック\n60サイズ','770','380'],
-            ['y80','ゆうパック\n80サイズ','870','380'],
-            ['y100','ゆうパック\n1000サイズ','1070','380']
-        ]
-        let rowsLength2 = shippingFeeList.length;
-        let columnLength2 = shippingFeeList[0].length;
-        let newTr;
-        let newTd;
-        let newRadio;
-        let newLabel;
-        let newTextNode;
-        newTr = document.createElement('tr');
-            newTd = document.createElement('td');
-            newTr.appendChild(newTd);
-            for (let j=2;j<columnLength2;j++){
+    <table id="mainTable">
+        <caption>フリマコストシミュレーション</caption>
+        <tr>
+            <th></th>
+            <th>メルカリ </th>
+            <th> ラクマ </th>
+        </tr>
+        <tr>
+            <td> 販売価格 </td>
+            <td> <input> </td>
+            <td> <input> </td>
+        </tr>
+        <tr>
+            <td> 送料 </td>
+            <td> <input> </td>
+            <td> <input> </td>
+        </tr>
+        <tr>
+            <td> 手数料 </td>
+            <td> </td>
+            <td></td>
+        </tr>
+        <tr>
+            <td> 残高 </td>
+            <td> </td>
+            <td> </td>
+        </tr>
+    </table>
+    <table id="shippingFee">
+        <caption>送料表</caption>
+        <tbody></tbody>
+        <script>
+            const shippingFeeTable = document.getElementById('shippingFee').getElementsByTagName('tbody')[0];
+            const shippingFeeList = [
+                ['', '', 'メルカリ', 'ラクマ'],
+                ['yp', 'ゆうパケット', '230', '180'],
+                ['ypps', 'ゆうパケット\nポスト(シール)', '220', '180'],
+                ['ypph', 'ゆうパケット\nポスト(箱)', '280', '240'],
+                ['ypp', 'ゆうパケット\nプラス', '455', '445'],
+                ['y60', 'ゆうパック\n60サイズ', '770', '700'],
+                ['y80', 'ゆうパック\n80サイズ', '870', '800'],
+                ['y100', 'ゆうパック\n1000サイズ', '1070', '1150']
+            ]
+            let rowsLength2 = shippingFeeList.length;
+            let columnLength2 = shippingFeeList[0].length;
+            let newTr;
+            let newTd;
+            let newRadio;
+            let newLabel;
+            let newTextNode;
+            newTr = document.createElement('tr');
+                newTd = document.createElement('td');
+                    newTd.colSpan = 2
+                newTr.appendChild(newTd);
+            shippingFeeTable.appendChild(newTr);
+            for (let j = 2; j < columnLength2; j++) {
                 newTd = document.createElement('td');
                 newTr.appendChild(newTd);
                 newTd.innerText = shippingFeeList[0][j];
             }
-        shippingFeeTable.appendChild(newTr);
-        for (let i=1;i<rowsLength2;i++){
-            newTr = document.createElement('tr');
-                newTd = document.createElement('td');
-                    newLabel = document.createElement('label');
-                        newLabel.innerText=shippingFeeList[i][1];
-                    newRadio = document.createElement('input');
-                        newRadio.type = 'radio';
-                        newRadio.name = 'shippingFee';
-                        newRadio.value = shippingFeeList[i][0];
-                    newLabel.prepend (newRadio);
-                newTd.appendChild(newLabel);
-            newTr.appendChild(newTd);
-            for (let j=2;j<columnLength2;j++){
-                newTd = document.createElement('td');
-                newTr.appendChild(newTd);
-                newTd.innerText = shippingFeeList[i][j];
-            }
             shippingFeeTable.appendChild(newTr);
-        }
-    </script>
-</table>
-<div>
-    <h2>次やること</h2>
-    <p>送料表で選んだものを取得し送料を反映させる</p>
-    <p>ヤマトの料金、匿名発送以外の料金を反映させる</p>
-</div>
+            for (let i = 1; i < rowsLength2; i++) {
+                newTr = document.createElement('tr');
+                    newTd = document.createElement('td');
+                        newRadio = document.createElement('input');
+                            newRadio.type = 'radio';
+                            newRadio.name = 'shippingFee';
+                            newRadio.id ='radio_'+  shippingFeeList[i][0];     
+                            newRadio.value = shippingFeeList[i][0];     
+                        newTd.appendChild(newRadio);
+                    newTr.appendChild(newTd);
+                    newTd = document.createElement('td');
+                        newLabel = document.createElement('label');
+                            newLabel.htmlFor = 'radio_'+  shippingFeeList[i][0];
+                            newLabel.innerText = shippingFeeList[i][1];
+                        newTd.appendChild(newLabel);
+                    newTr.appendChild(newTd);
+                    for (let j = 2; j < columnLength2; j++) {
+                        newTd = document.createElement('td');
+                        newLabel = document.createElement('label');
+                            newLabel.htmlFor = 'radio_'+  shippingFeeList[i][0];
+                            newLabel.innerText = shippingFeeList[i][j];
+                        newTd.appendChild(newLabel);
+                        newTr.appendChild(newTd);
+                    }
+                shippingFeeTable.appendChild(newTr);
+            }
+        </script>
+    </table>
+    <input type="submit" value="radiotest" onclick="vitivilityTest()">
+    <div>
+        <h2>次やること</h2>
+        <p>ヤマトの料金、匿名発送以外の料金を反映させる</p>
+        <p>縦横斜めから送料を選ぶ</p>
+    </div>
 </body>
+
 </html>

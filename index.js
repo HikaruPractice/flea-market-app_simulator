@@ -18,7 +18,11 @@ window.addEventListener('DOMContentLoaded', function(){
     for (let i = 0;i<inputTagCount;i++){
         inputTags[i].addEventListener("input",Calculation);
     }
-
+    let radioTags = document.getElementById('shippingFee').getElementsByTagName("input");
+    let radioTagCount = radioTags.length;
+    for (let i = 0;i<radioTagCount;i++){
+        radioTags[i].addEventListener("input",radioCheked);
+    }
   });
 
 
@@ -71,10 +75,63 @@ function pasteRow(row,arr){
         tableElement.rows[row].cells[i].textContent = arr[i - 1];
     }
 }
+function pasteRowInput(row,arr){
+    for (let i = 1; i < columnLength; i++) {
+        tableElement.rows[row].cells[i].getElementsByTagName('input')[0].value = arr[i - 1];
+    }
+}
 
 function feeMercari(price){
     return Math.floor(price * 0.1);
 }
 function feeRakuma(price){
     return Math.floor(price * 0.066);
+}
+
+function radioCheked(){
+    inputFee();
+    Calculation();
+}
+
+function inputFee(){
+    let radiosFee = document.getElementsByName("shippingFee");
+    let len = radiosFee.length;
+    let checkValue = '';
+    //選択項目を取得
+    for (let i = 0;i<len;i++){
+        if(radiosFee[i].checked){
+            checkValue = radiosFee[i].value;
+            break;
+        }
+    }
+    //料金表から選択項目の料金を取得
+    let rownum;
+    let colLen ;
+    for (let i = 1;i<=len;i++){
+        if (checkValue === shippingFeeList[i][0]){
+            rownum = i;
+            colLen =             shippingFeeList[i].length;
+            break;
+        }
+    }
+        //選んでないときなど、見つからないときは何もせず終了
+    if (checkValue === ''){
+        return;
+    }
+    let shippingFees = [];
+    for (let i = 0;i<(colLen-2);i++){
+        shippingFees[i] = shippingFeeList[rownum][i+2];
+    }
+    pasteRowInput(2,shippingFees)
+}
+
+let savedisplay
+
+function vitivilityTest(){
+    if(document.getElementById('shippingFee').style.display === 'none'){
+        document.getElementById('shippingFee').style.display = savedisplay
+    }else{
+        savedisplay =document.getElementById('shippingFee').style.display
+        document.getElementById('shippingFee').style.display = 'none';
+    }
 }

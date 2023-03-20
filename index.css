@@ -34,7 +34,36 @@ th,td{
     width: 120px;
 }
 #shippingFee td:nth-child(1){
+    width: auto;
+    border-right: none;
+    width: 30px;
+    text-align: center;
+}
+#shippingFee td:nth-child(2){
     font-size: 20px;
     width: auto;
+    border-left: none;
     text-align: left;
+}
+
+#shippingFee tr:nth-child(1) td{
+    border: solid 1px;
+    font-size: 25px;
+    height:27px;
+    width: 120px;
+    text-align: center;
+}
+
+#shippingFee label{
+    display: block;
+}
+#shippingFee input[type="radio"]{
+    transform:scale(1.5)
+}
+
+#shippingFee tr{
+    transition: 0.3s;
+}
+#shippingFee tr:hover{
+    background-color: lavender;
 }
