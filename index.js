@@ -23,6 +23,11 @@ window.addEventListener('DOMContentLoaded', function(){
     for (let i = 0;i<radioTagCount;i++){
         radioTags[i].addEventListener("input",radioCheked);
     }
+    let optionTags = document.getElementById('options').getElementsByTagName("input");
+    let optionTagsCount = optionTags.length;
+    for (let i = 0;i<optionTagsCount;i++){
+        optionTags[i].addEventListener("input",optionChanged);
+    }
   });
 
 
@@ -72,7 +77,7 @@ function getRow(row,arr){
 
 function pasteRow(row,arr){
     for (let i = 1; i < columnLength; i++) {
-        tableElement.rows[row].cells[i].textContent = arr[i - 1];
+        tableElement.rows[row].cells[i].getElementsByTagName("input")[0].value = arr[i - 1];
     }
 }
 function pasteRowInput(row,arr){
@@ -91,6 +96,35 @@ function feeRakuma(price){
 function radioCheked(){
     inputFee();
     Calculation();
+}
+
+function optionChanged(){
+    let mode_kobetsu = document.getElementById('kobetsu').checked;
+    let mode_gyakusan = document.getElementById('gyakusan').checked;
+    let rowLen = document.getElementById('mainTable').getElementsByTagName('tr').length;
+    let colLen = document.getElementById('mainTable').getElementsByTagName('tr')[1].getElementsByTagName('input').length;
+    if (mode_kobetsu){
+        let rown1;
+        let rown2;
+        if (mode_gyakusan){
+            rown1 = rowLen-1;
+            rown2 = 1;
+        }else{
+            rown2 = rowLen-1;
+            rown1 = 1;
+        }
+        for (let i = 1;i<colLen;i++){
+            document.getElementById('mainTable').getElementsByTagName('tr')[rown1].getElementsByTagName('input')[i].readOnly = true;
+            document.getElementById('mainTable').getElementsByTagName('tr')[rown2].getElementsByTagName('input')[i].readOnly = false;
+        }
+    }else{
+        for (let i = 1;i<colLen;i++){
+            document.getElementById('mainTable').getElementsByTagName('tr')[1].getElementsByTagName('input')[i].readOnly = false    ;
+            document.getElementById('mainTable').getElementsByTagName('tr')[rowLen-1].getElementsByTagName('input')[i].readOnly = false;
+        }
+
+    }
+
 }
 
 function inputFee(){

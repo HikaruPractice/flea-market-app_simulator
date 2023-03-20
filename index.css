@@ -10,7 +10,7 @@ caption{
 
 th,td{
     height:52px;
-    font-size:30px;
+    font-size:20px;
     text-align: right;
 }
 
@@ -26,6 +26,11 @@ th,td{
     font-size:30px;
     width: 120px;
     text-align: right;
+}
+
+#mainTable input[readonly]{
+    border:none;
+    background-color: whitesmoke;
 }
 
 #shippingFee td,tr{

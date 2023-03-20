@@ -19,7 +19,7 @@
         <tr>
             <td> 販売価格 </td>
             <td> <input> </td>
-            <td> <input> </td>
+            <td> <input readonly> </td>
         </tr>
         <tr>
             <td> 送料 </td>
@@ -28,15 +28,19 @@
         </tr>
         <tr>
             <td> 手数料 </td>
-            <td> </td>
-            <td></td>
+            <td> <input> <br>(10%)</td>
+            <td> <input> <br>(6.6%)</td>
         </tr>
         <tr>
             <td> 残高 </td>
-            <td> </td>
-            <td> </td>
+            <td> <input> </td>
+            <td> <input> </td>
         </tr>
     </table>
+    <div id="options">
+        <label><input id="kobetsu" type="checkbox">フリマごとに設定する</label>
+        <label><input id="gyakusan" type="checkbox">逆算する</label>
+    </div>
     <table id="shippingFee">
         <caption>送料表</caption>
         <tbody></tbody>
@@ -101,8 +105,10 @@
     <input type="submit" value="radiotest" onclick="vitivilityTest()">
     <div>
         <h2>次やること</h2>
-        <p>ヤマトの料金、匿名発送以外の料金を反映させる</p>
-        <p>縦横斜めから送料を選ぶ</p>
+        <p>フリマ毎に設定・逆算設定(計算時コピーする・計算時逆算方式を摘要する・逆算の計算式)
+        </p>
+        <p>ヤマトの料金、匿名発送以外の料金表をタブで切り替える</p>
+        <p>縦横の長さから送料を選ぶ</p>
     </div>
 </body>
 
