@@ -6,6 +6,7 @@ table,th,td{
 
 caption{
     font-size: 25px;
+    background-color: whitesmoke;
 }
 
 th,td{
@@ -14,8 +15,15 @@ th,td{
     text-align: right;
 }
 
+.rate{
+    font-size: 15px;
+}
+
 #mainTable th{
-    font-size:25px
+    font-size:25px;
+}
+#mainTable tr td:nth-child(1){
+    font-size:30px;
 }
 #mainTable tr:nth-last-child(1) td{
     border-top: double 5px;
@@ -33,25 +41,46 @@ th,td{
     background-color: whitesmoke;
 }
 
-#shippingFee td,tr{
+
+.tabLabels{
+    width: 432px;
+    height: 50px;
+    text-align: center;
+}
+.tabLabels h2{
+    margin: 0px;
+}
+.tabLabel{
+    width: calc(100%/3);
+    height: 50px;
+    float: left;
+    border-bottom: 3px solid #5ab4bd;
+    text-align: center;
+    transition: 0.1s
+}
+
+
+
+.tab-content td,tr{
     font-size: 25px;
     height:27px;
     width: 120px;
 }
-#shippingFee td:nth-child(1){
+.tab-content td:nth-child(1){
     width: auto;
     border-right: none;
     width: 30px;
     text-align: center;
 }
-#shippingFee td:nth-child(2){
+.tab-content td:nth-child(2){
     font-size: 20px;
     width: auto;
     border-left: none;
     text-align: left;
+    width: 150px;
 }
 
-#shippingFee tr:nth-child(1) td{
+.tab-content tr:nth-child(1) td{
     border: solid 1px;
     font-size: 25px;
     height:27px;
@@ -59,16 +88,51 @@ th,td{
     text-align: center;
 }
 
-#shippingFee label{
+.tab-content label{
     display: block;
 }
-#shippingFee input[type="radio"]{
+.tab-content input[type="radio"]{
     transform:scale(1.5)
 }
 
-#shippingFee tr{
+.tab-content tr{
     transition: 0.3s;
 }
-#shippingFee tr:hover{
-    background-color: lavender;
+
+#yubin tr,[for="tabYu"]{
+    background-color:lavenderblush;
+}
+
+#yubin tr:hover,.tabOn[for="tabYu"]{
+    background-color: pink;
+}
+#yamato tr,[for="tabYa"]{
+    background-color:honeydew;
+}
+
+#yamato tr:hover,.tabOn[for="tabYa"]{
+    background-color: palegreen;
+}
+#other tr,[for="tabOthers"]{
+    background-color:lightcyan;
+}
+
+#other tr:hover,.tabOn[for="tabOthers"]{
+    background-color: paleturquoise;
+}
+
+input[name="tab"] {
+    display: none;
+}
+
+.tab-content{
+    display: none;
+    clear: both;
+    
+}
+
+input[name="tab"]:checked + .tab-content
+{
+    display: block;
+    border: none;
 }
