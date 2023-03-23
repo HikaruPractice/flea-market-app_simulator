@@ -1,3 +1,6 @@
+body{
+    height: 1200px;
+}
 table,th,td{
     border-collapse: collapse;
     border:1px solid;
@@ -56,7 +59,11 @@ th,td{
     float: left;
     border-bottom: 3px solid #5ab4bd;
     text-align: center;
-    transition: 0.1s
+    border-radius:20px 20px 0 0;
+    transition: 0.5s;
+}
+.tabLabel:hover{
+    opacity: 0.7;
 }
 
 
@@ -134,5 +141,14 @@ input[name="tab"] {
 input[name="tab"]:checked + .tab-content
 {
     display: block;
+    animation: appear .5s ease;
     border: none;
+}
+@keyframes appear {
+    0%{
+      opacity: 0;
+    }
+    100%{
+
+    }
 }
