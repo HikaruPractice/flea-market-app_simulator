@@ -20,6 +20,7 @@ window.onload = f => {
     inputShippingFeeList();
     createFeeTables();
     optionChanged();
+
 }
 
 window.addEventListener('load', function () {
@@ -149,13 +150,24 @@ function feeMercari(price) {
     return Math.floor(price * 0.1);
 }
 function priceMercari(amount) {
+    let m= amount % 9;
+    if (m === 0){
+        return Math.floor(amount / 0.9)-1;
+    } 
     return Math.floor(amount / 0.9);
 }
 function feeRakuma(price) {
     return Math.floor(price * 0.066);
 }
 function priceRakuma(amount) {
-    return Math.floor(amount / 0.934);
+    const b = [15,29,43,57,71,85,100,114,128,142,156,170,184,199,213,227,241,255,269,284,298,312,326,340,354,368,383,397,411,425,439,453,467    ]
+    let d =Math.floor(amount / 468);
+    let m = amount - d * 468;
+    for (let i=0;i<33;i++){
+        if (m <= b[i]){
+            return d*33+i+amount;
+        }
+    }
 }
 function radioCheked() {
     inputFee();
@@ -242,8 +254,6 @@ function inputShippingFeeList(){
         }
         shippingFeeList.push(cells);
     }
-    console.log('全体');
-    console.log(shippingFeeList);
     let fnc= (feeList,i) =>{
         do{
             let colLen = shippingFeeList[i].length;
@@ -251,7 +261,6 @@ function inputShippingFeeList(){
             for (j=0;j<colLen;j++){
                 copyRow.push(shippingFeeList[i][j]);
             }
-            console.log(copyRow);
             feeList.push(copyRow);
             i++;
         } while (shippingFeeList[i][0]!=='');
@@ -356,3 +365,4 @@ function tabClick(n){
         }
     }
 }
+
