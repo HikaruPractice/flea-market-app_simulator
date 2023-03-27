@@ -5,8 +5,6 @@ let shippingFees = [];
 let tableElement;
 let rowLength;
 let columnLength;
-let sellingFeeCalculation = [feeMercari, feeRakuma];
-let priceCalculation = [priceMercari, priceRakuma];
 let shippingFeeList=[];
 let yubinFeeList=[];
 let yamatoFeeList=[];
@@ -15,12 +13,12 @@ let otherFeeList=[];
 window.onload = f => {
     balances = [100, 200];
     tableElement = document.getElementById("mainTable");
+    inputShippingFeeList();
+    createMainTable();
     rowLength = tableElement.rows.length;
     columnLength = tableElement.rows[0].cells.length;
-    inputShippingFeeList();
     createFeeTables();
     optionChanged();
-
 }
 
 window.addEventListener('load', function () {
@@ -41,6 +39,52 @@ window.addEventListener('load', function () {
     }
 });
 
+function createMainTable(){
+    let tr = $('<tr>');
+    let colLen = shippingFeeList[0].length-2;
+    //タイトル行
+    tr.append($('<th>'));
+    for (let i = 0;i<colLen;i++){
+        let th = $('<th>');
+        th.text(shippingFeeList[0][i+2]);
+        tr.append(th);
+    }
+    $('#mainTable').append(tr);
+    //販売価格
+    tr = $('<tr>');
+    tr.append($('<td>').text('販売価格'));
+    for (let i = 0;i<colLen;i++){
+        let td = $('<td>');
+        tr.append( $('<td>').append($('<input>')));
+    }
+    $('#mainTable').append(tr);
+    //送料
+    tr = $('<tr>');
+    tr.append($('<td>').text('送料'));
+    for (let i = 0;i<colLen;i++){
+        let td = $('<td>');
+        tr.append( $('<td>').append($('<input>')));
+    }
+    $('#mainTable').append(tr);
+    //手数料
+    tr = $('<tr>');
+    tr.append($('<td>').text('手数料'));
+    for (let i = 0;i<colLen;i++){
+        let td = $('<td>');
+        let rate = shippingFeeList[shippingFeeList.length-1][i+2]
+        let html = '<input readonly> <br><span class="rate">(' + rate + ')</span>'
+        tr.append( $('<td>').html(html));
+    }
+    $('#mainTable').append(tr);
+    //残高
+    tr = $('<tr>');
+    tr.append($('<td>').text('残高'));
+    for (let i = 0;i<colLen;i++){
+        let td = $('<td>');
+        tr.append( $('<td>').append($('<input>')));
+    }
+    $('#mainTable').append(tr);
+}
 
 function Calculation() {
     let mode_gyakusan = document.getElementById('gyakusan').checked;
@@ -69,6 +113,8 @@ function Reverse() {
         let ans = priceCalculation[i - 1](Number(balances[i - 1]) + Number(shippingFees[i - 1]));
         if (isNaN(ans)) {
             ans = '';
+        }else if(ans<0){
+            ans=0;
         }
         prices[i - 1] = ans;
     }
@@ -146,29 +192,6 @@ function pasteRowInput(row, arr) {
     }
 }
 
-function feeMercari(price) {
-    return Math.floor(price * 0.1);
-}
-function priceMercari(amount) {
-    let m= amount % 9;
-    if (m === 0){
-        return Math.floor(amount / 0.9)-1;
-    } 
-    return Math.floor(amount / 0.9);
-}
-function feeRakuma(price) {
-    return Math.floor(price * 0.066);
-}
-function priceRakuma(amount) {
-    const b = [15,29,43,57,71,85,100,114,128,142,156,170,184,199,213,227,241,255,269,284,298,312,326,340,354,368,383,397,411,425,439,453,467    ]
-    let d =Math.floor(amount / 468);
-    let m = amount - d * 468;
-    for (let i=0;i<33;i++){
-        if (m <= b[i]){
-            return d*33+i+amount;
-        }
-    }
-}
 function radioCheked() {
     inputFee();
     Calculation();
@@ -321,13 +344,12 @@ function createFeeTable2(id,feeList){
     let rowLen = feeList.length;
     {
         let newRow = document.createElement('tr')
-        let colLen = feeList[0].length
         let newCol = document.createElement('td');
         newCol.colSpan = 2;
         newCol.innerText = '発送方法';
         newRow.append(newCol);
         newCol = document.createElement('td');
-        newCol.innerText = '(共通)';
+        newCol.innerHTML = '(共通)<br><span style ="color:red;font-weight: bold;font-size:20px; ">[ペイフリは不可]</span>';
         newRow.append(newCol);
         feeTable.append(newRow);
     }
@@ -341,8 +363,7 @@ function createFeeTable2(id,feeList){
         newRadio.value = feeList[i][0];
         newCol.append(newRadio);
         newRow.append(newCol);
-        let colLen = feeList[i].length
-        for (j=1;j<colLen-1;j++){
+        for (j=1;j<3;j++){
             let newCol = document.createElement('td');
             let newLabel = document.createElement('label');
             newLabel.htmlFor = 'radio_'  +feeList[i][0];

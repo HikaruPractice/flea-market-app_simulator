@@ -4,6 +4,8 @@
 
 <head>
     <title>フリマ</title>
+    <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+    <script src="formula.js"></script>
     <script src="index.js"></script>
     <link rel="stylesheet" href="index.css">
 </head>
@@ -12,32 +14,6 @@
     <div class="main-wrap">
         <table id="mainTable">
             <caption>フリマコストシミュレーション</caption>
-            <tr>
-                <th></th>
-                <th>メルカリ </th>
-                <th> ラクマ </th>
-            </tr>
-            <tr>
-                <td> 販売価格 </td>
-                <td> <input> </td>
-                <td> <input> </td>
-            </tr>
-            <tr>
-                <td> 送料 </td>
-                <td> <input> </td>
-                <td> <input> </td>
-            </tr>
-            <tr>
-                <td> 手数料 </td>
-                <td> <input readonly> <br><span class="rate">(10%)</span></td>
-                <td> <input readonly> <br><span class="rate">(6.6%)</span></td>
-
-            </tr>
-            <tr>
-                <td> 残高 </td>
-                <td> <input> </td>
-                <td> <input> </td>
-            </tr>
         </table>
         <div id="options">
             <label><input id="kobetsu" type="checkbox">フリマごとに設定する</label>
@@ -68,6 +44,8 @@
                 <caption>その他</caption>
                 <tbody id = "tbody-otherFee"></tbody>
             </table>
+            <p>最終改定日:2023年4月4日</p>
+            <p>最終更新日:2023年3月17日</p>
         </div>
     </div>
     <div style="clear: both; display:none;">
