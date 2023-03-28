@@ -157,7 +157,7 @@ input[name="tab"]:checked + .tab-content
 }
 .spinButton{
     height: 50px;
-    width: 150px;
+    width: 120px;
     font-size: 30px;
     text-align: center;
 }
