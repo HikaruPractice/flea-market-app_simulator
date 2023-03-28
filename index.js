@@ -5,10 +5,10 @@ let shippingFees = [];
 let tableElement;
 let rowLength;
 let columnLength;
-let shippingFeeList=[];
-let yubinFeeList=[];
-let yamatoFeeList=[];
-let otherFeeList=[];
+let shippingFeeList = [];
+let yubinFeeList = [];
+let yamatoFeeList = [];
+let otherFeeList = [];
 
 window.onload = f => {
     balances = [100, 200];
@@ -39,49 +39,49 @@ window.addEventListener('load', function () {
     }
 });
 
-function createMainTable(){
+function createMainTable() {
     let tr = $('<tr>');
-    let colLen = shippingFeeList[0].length-2;
+    let colLen = shippingFeeList[0].length - 2;
     //タイトル行
     tr.append($('<th>'));
-    for (let i = 0;i<colLen;i++){
+    for (let i = 0; i < colLen; i++) {
         let th = $('<th>');
-        th.text(shippingFeeList[0][i+2]);
+        th.text(shippingFeeList[0][i + 2]);
         tr.append(th);
     }
     $('#mainTable').append(tr);
     //販売価格
     tr = $('<tr>');
     tr.append($('<td>').text('販売価格'));
-    for (let i = 0;i<colLen;i++){
+    for (let i = 0; i < colLen; i++) {
         let td = $('<td>');
-        tr.append( $('<td>').append($('<input>')));
+        tr.append($('<td>').append($('<input>')));
     }
     $('#mainTable').append(tr);
     //送料
     tr = $('<tr>');
     tr.append($('<td>').text('送料'));
-    for (let i = 0;i<colLen;i++){
+    for (let i = 0; i < colLen; i++) {
         let td = $('<td>');
-        tr.append( $('<td>').append($('<input>')));
+        tr.append($('<td>').append($('<input>')));
     }
     $('#mainTable').append(tr);
     //手数料
     tr = $('<tr>');
     tr.append($('<td>').text('手数料'));
-    for (let i = 0;i<colLen;i++){
+    for (let i = 0; i < colLen; i++) {
         let td = $('<td>');
-        let rate = shippingFeeList[shippingFeeList.length-1][i+2]
+        let rate = shippingFeeList[shippingFeeList.length - 1][i + 2]
         let html = '<input readonly> <br><span class="rate">(' + rate + ')</span>'
-        tr.append( $('<td>').html(html));
+        tr.append($('<td>').html(html));
     }
     $('#mainTable').append(tr);
     //残高
     tr = $('<tr>');
     tr.append($('<td>').text('残高'));
-    for (let i = 0;i<colLen;i++){
+    for (let i = 0; i < colLen; i++) {
         let td = $('<td>');
-        tr.append( $('<td>').append($('<input>')));
+        tr.append($('<td>').append($('<input>')));
     }
     $('#mainTable').append(tr);
 }
@@ -99,12 +99,12 @@ function Calculation() {
 function Reverse() {
     let targetRow;
     getRow(rowSearch("残高"), balances);
-    if (!document.getElementById('kobetsu').checked){
-        for (let i=1;i<columnLength;i++){
-            balances[i] = balances[0]            
+    if (!document.getElementById('kobetsu').checked) {
+        for (let i = 1; i < columnLength; i++) {
+            balances[i] = balances[0]
         }
         targetRow = rowSearch('残高');
-        pasteRow(targetRow,balances)
+        pasteRow(targetRow, balances)
     }
     getRow(rowSearch("送料"), shippingFees);
     //販売価格計算
@@ -113,8 +113,8 @@ function Reverse() {
         let ans = priceCalculation[i - 1](Number(balances[i - 1]) + Number(shippingFees[i - 1]));
         if (isNaN(ans)) {
             ans = '';
-        }else if(ans<0){
-            ans=0;
+        } else if (ans < 0) {
+            ans = 0;
         }
         prices[i - 1] = ans;
     }
@@ -135,12 +135,12 @@ function Reverse() {
 function Normal() {
     let targetRow;
     getRow(rowSearch("販売価格"), prices);
-    if (!document.getElementById('kobetsu').checked){
-        for (let i=1;i<columnLength;i++){
-            prices[i] = prices[0]            
+    if (!document.getElementById('kobetsu').checked) {
+        for (let i = 1; i < columnLength; i++) {
+            prices[i] = prices[0]
         }
         targetRow = rowSearch('販売価格');
-        pasteRow(targetRow,prices)
+        pasteRow(targetRow, prices)
     }
     getRow(rowSearch("送料"), shippingFees);
 
@@ -202,11 +202,11 @@ function optionChanged() {
     let mode_gyakusan = document.getElementById('gyakusan').checked;
     let rowLen = document.getElementById('mainTable').getElementsByTagName('tr').length;
     let colLen = document.getElementById('mainTable').getElementsByTagName('tr')[1].getElementsByTagName('input').length;
-    for (let i = 0;i<colLen;i++){
+    for (let i = 0; i < colLen; i++) {
         document.getElementById('mainTable').getElementsByTagName('tr')[1].getElementsByTagName('input')[i].readOnly = mode_gyakusan;
         document.getElementById('mainTable').getElementsByTagName('tr')[1].getElementsByTagName('input')[i].readOnly = mode_gyakusan;
-        document.getElementById('mainTable').getElementsByTagName('tr')[rowLen-1].getElementsByTagName('input')[i].readOnly = !mode_gyakusan;
-        document.getElementById('mainTable').getElementsByTagName('tr')[rowLen-1].getElementsByTagName('input')[i].readOnly = !mode_gyakusan;
+        document.getElementById('mainTable').getElementsByTagName('tr')[rowLen - 1].getElementsByTagName('input')[i].readOnly = !mode_gyakusan;
+        document.getElementById('mainTable').getElementsByTagName('tr')[rowLen - 1].getElementsByTagName('input')[i].readOnly = !mode_gyakusan;
 
     }
 
@@ -261,46 +261,46 @@ function inputFee() {
     pasteRowInput(2, shippingFees)
 }
 
-function inputShippingFeeList(){
+function inputShippingFeeList() {
     let csv = new XMLHttpRequest();
-    
-    csv.open('get','shippingFeeList.csv',false);
+
+    csv.open('get', 'shippingFeeList.csv', false);
     csv.send(null);
-    
+
     let lines = csv.responseText.split(/\r\n|\n/);
-    
-    for (let i=0;i<lines.length;i++){
+
+    for (let i = 0; i < lines.length; i++) {
         let cells = lines[i].split(",");
         let colLen = cells.length;
-        for (let j = 0;j<colLen;j++){
-            cells[j] =cells[j].replace(':','\n');
+        for (let j = 0; j < colLen; j++) {
+            cells[j] = cells[j].replace(':', '\n');
         }
         shippingFeeList.push(cells);
     }
-    let fnc= (feeList,i) =>{
-        do{
+    let fnc = (feeList, i) => {
+        do {
             let colLen = shippingFeeList[i].length;
-            let copyRow=[];
-            for (j=0;j<colLen;j++){
+            let copyRow = [];
+            for (j = 0; j < colLen; j++) {
                 copyRow.push(shippingFeeList[i][j]);
             }
             feeList.push(copyRow);
             i++;
-        } while (shippingFeeList[i][0]!=='');
+        } while (shippingFeeList[i][0] !== '');
         return i;
     }
     i = 0
-    i=fnc(yubinFeeList,i);
-    i=fnc(yamatoFeeList,i);
-    i=fnc(otherFeeList,i);
+    i = fnc(yubinFeeList, i);
+    i = fnc(yamatoFeeList, i);
+    i = fnc(otherFeeList, i);
 
 }
-function createFeeTables(){
-    createFeeTable('tbody-yubinFee',yubinFeeList);
-    createFeeTable('tbody-yamatoFee',yamatoFeeList);
-    createFeeTable2('tbody-otherFee',otherFeeList);
+function createFeeTables() {
+    createFeeTable('tbody-yubinFee', yubinFeeList);
+    createFeeTable('tbody-yamatoFee', yamatoFeeList);
+    createFeeTable2('tbody-otherFee', otherFeeList);
 }
-function createFeeTable(id,feeList){
+function createFeeTable(id, feeList) {
     let feeTable = document.getElementById(id);
     let rowLen = feeList.length;
     {
@@ -310,28 +310,28 @@ function createFeeTable(id,feeList){
         newCol.colSpan = 2;
         newCol.innerText = '発送方法';
         newRow.append(newCol);
-        for (j=2;j<colLen;j++){
+        for (j = 2; j < colLen; j++) {
             let newCol = document.createElement('td');
             newCol.innerText = feeList[0][j];
             newRow.append(newCol);
         }
         feeTable.append(newRow);
     }
-    for (i=1;i<rowLen;i++){
+    for (i = 1; i < rowLen; i++) {
         let newRow = document.createElement('tr')
         let newCol = document.createElement('td');
         let newRadio = document.createElement('input');
         newRadio.type = 'radio';
         newRadio.name = 'shippingFee';
-        newRadio.id = 'radio_'+feeList[i][0];
+        newRadio.id = 'radio_' + feeList[i][0];
         newRadio.value = feeList[i][0];
         newCol.append(newRadio);
         newRow.append(newCol);
         let colLen = feeList[i].length
-        for (j=1;j<colLen;j++){
+        for (j = 1; j < colLen; j++) {
             let newCol = document.createElement('td');
             let newLabel = document.createElement('label');
-            newLabel.htmlFor = 'radio_'  +feeList[i][0];
+            newLabel.htmlFor = 'radio_' + feeList[i][0];
             newLabel.innerText = feeList[i][j];
             newCol.appendChild(newLabel);
             newRow.append(newCol);
@@ -339,7 +339,7 @@ function createFeeTable(id,feeList){
         feeTable.append(newRow);
     }
 }
-function createFeeTable2(id,feeList){
+function createFeeTable2(id, feeList) {
     let feeTable = document.getElementById(id);
     let rowLen = feeList.length;
     {
@@ -353,20 +353,20 @@ function createFeeTable2(id,feeList){
         newRow.append(newCol);
         feeTable.append(newRow);
     }
-    for (i=1;i<rowLen;i++){
+    for (i = 1; i < rowLen; i++) {
         let newRow = document.createElement('tr')
         let newCol = document.createElement('td');
         let newRadio = document.createElement('input');
         newRadio.type = 'radio';
         newRadio.name = 'shippingFee';
-        newRadio.id = 'radio_'+feeList[i][0];
+        newRadio.id = 'radio_' + feeList[i][0];
         newRadio.value = feeList[i][0];
         newCol.append(newRadio);
         newRow.append(newCol);
-        for (j=1;j<3;j++){
+        for (j = 1; j < 3; j++) {
             let newCol = document.createElement('td');
             let newLabel = document.createElement('label');
-            newLabel.htmlFor = 'radio_'  +feeList[i][0];
+            newLabel.htmlFor = 'radio_' + feeList[i][0];
             newLabel.innerText = feeList[i][j];
             newCol.appendChild(newLabel);
             newRow.append(newCol);
@@ -375,15 +375,37 @@ function createFeeTable2(id,feeList){
     }
 }
 
-function tabClick(n){
+function tabClick(n) {
     let labels = document.getElementsByClassName('tabLabel');
     let cnt = labels.length;
-    for (i=0;i<cnt;i++){
-        if (i===n){
+    for (i = 0; i < cnt; i++) {
+        if (i === n) {
             labels[i].classList.add('tabOn');
-        }else{
+        } else {
             labels[i].classList.remove('tabOn');
         }
     }
 }
 
+function spin(n) {
+    let mode_gyakusan = document.getElementById('gyakusan').checked;
+    if (mode_gyakusan) {
+        getRow(rowSearch("残高"), balances);
+        for (let i = 0; i < columnLength; i++) {
+            if (!isNaN(balances[i])) {
+                balances[i] = String(Number(balances[i]) + n);
+            }
+        }
+        pasteRow(rowSearch("残高"), balances);
+    } else {
+        getRow(rowSearch("販売価格"), prices);
+        for (let i = 0; i < columnLength; i++) {
+            if (!isNaN(prices[i])) {
+                prices[i] = String(Number(prices[i]) + n);
+            }
+        }
+        targetRow = rowSearch('販売価格');
+        pasteRow(rowSearch("販売価格"), prices);
+    }
+    Calculation();
+}

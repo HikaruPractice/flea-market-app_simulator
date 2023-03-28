@@ -152,3 +152,17 @@ input[name="tab"]:checked + .tab-content
 
     }
 }
+#spins{
+    font-size: 0;
+}
+.spinButton{
+    height: 40px;
+    width: 80px;
+    font-size: 25px;
+}
+#options label{
+    font-size: 25px;
+}
+#options input{
+    transform: scale(1.5);
+}
