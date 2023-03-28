@@ -394,6 +394,9 @@ function spin(n) {
         for (let i = 0; i < columnLength; i++) {
             if (!isNaN(balances[i])) {
                 balances[i] = String(Number(balances[i]) + n);
+                if (balances[i]<0){
+                    balances[i]=0;
+                }
             }
         }
         pasteRow(rowSearch("残高"), balances);
@@ -402,6 +405,9 @@ function spin(n) {
         for (let i = 0; i < columnLength; i++) {
             if (!isNaN(prices[i])) {
                 prices[i] = String(Number(prices[i]) + n);
+                if (prices[i]<0){
+                    prices[i]=0;
+                }
             }
         }
         targetRow = rowSearch('販売価格');
