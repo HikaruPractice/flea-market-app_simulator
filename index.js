@@ -45,9 +45,10 @@ function createMainTable() {
     //タイトル行
     tr.append($('<th>'));
     for (let i = 0; i < colLen; i++) {
-        let th = $('<th>');
-        th.text(shippingFeeList[0][i + 2]);
-        tr.append(th);
+        let inp=$('<button>');
+        inp.text(shippingFeeList[0][i + 2]);
+        inp.on('click',()=> {search(i)});
+        tr.append($('<th>').append(inp));
     }
     $('#mainTable').append(tr);
     //販売価格

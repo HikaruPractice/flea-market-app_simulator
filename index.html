@@ -6,12 +6,17 @@
     <title>フリマ</title>
     <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
     <script src="formula.js"></script>
+    <script src="search.js"></script>
     <script src="index.js"></script>
     <link rel="stylesheet" href="index.css">
 </head>
 
 <body>
     <div class="main-wrap">
+        <p>検索ワードを入れてフリマ名を押すと「新着順売り切れ」「安い順販売中」の検索ページに飛ぶ(メルカリ・ラクマのみ)</p>
+        <label for="keyword" class="searchLabels" id="keywordLabel">検索ワード</label><input type="text" name="keyword" class="searchInputs" id="keyword">
+        <br>
+        <label for="minPrice" class="searchLabels" id="minPriceLabel">価格下限</label><input type="text" name="minPrice" class="searchInputs" id="minPrice">
         <table id="mainTable">
             <caption>フリマコストシミュレーション</caption>
         </table>
