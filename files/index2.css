@@ -1,0 +1,7 @@
+
+@media screen and (min-width:428px) {
+    /*　画面サイズが428pxからはここを読み込む　*/
+    .wrap{
+        width: 428px;
+    }
+}

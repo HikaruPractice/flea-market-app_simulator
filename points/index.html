@@ -1,0 +1,174 @@
+
+<!DOCTYPE html>
+<html lang="ja">
+	<head>
+		<meta charset="utf-8">
+        <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no">
+		<title>リアル時間効率</title>
+		<link rel="stylesheet" href="../files/index.css">
+		<link rel="stylesheet" href="../files/index2.css">
+		
+		<!--[if lt IE 9]>
+		<script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+		<script src="http://css3-mediaqueries-js.googlecode.com/svn/trunk/css3-mediaqueries.js"></script>
+		<![endif]-->
+		<script>
+			const savename = 'points';
+		</script>
+		<script src="../files/time.js"></script>
+		<script src="../files/index.js"></script>
+		<script src="../files/localStorage.js"></script>
+		<script src="../files/onload.js"></script>
+		<script src="points.js"></script>
+	</head>
+
+	<body>
+		<!--24時間以上は対応していない-->
+		<!--差の計算が24時間以上だと狂う-->
+		<div class="wrap">
+			<span id="nowTime" style="float: right;">[現在時刻]</span>
+			<div class="counter">
+				<button id="countDisplay"  class="pointsDisplay">0</button>
+				<button id="countMinus" style="display: none;">0</button>
+				<input id="inputPointsArea" type="text" inputmode="numeric">
+				<button id="inputPointsButton" onclick="addInputPoints()" >追加</button> 
+				<button onclick="subInputPoints()">減算</button>
+				<button onclick="				timesAdd(-1)">回数-1</button>
+			</div>
+			<table>
+				<tr>
+					<td>
+						<span id="operatingTime"></span><span id="dot" style="color:white;">.</span><br>
+					</td>
+					<td>
+						<span id="pointsPerMinute"></span>pt/m<br>
+						<span id="pointsPerHour"></span>pt/h<br>
+					</td>
+				</tr>
+				<tr>
+				<td>
+						<span  class="countDisplay"></span>回
+					</td>
+					<td>
+						<span style="display: none;">
+							<span id="perMinute"></span>回/m<br>
+						</span>
+						<span id="perHour"></span>回/h<br>
+						<span id="averageTime"></span>/回<br>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						
+					</td>
+				</tr>
+				<tr>
+					<td>
+						
+					</td>
+					<td>
+					</td>
+				</tr>
+			</table>
+				<button onclick="start()" class="countMinus start">開始</button>
+				<button onclick="restart()" class="countMinus restart" >再開</button>
+				<button onclick="fin()" class="countMinus stop">停止/休憩</button>
+				<button onclick="reset()" class="countMinus reset">リセット</button>
+				<label class="checkbox"><input type="checkbox" id="checkbox" onchange=" checkboxChenge()">状態を記憶しない(削除)</label> 
+			<hr>
+				<table class="detail">
+				<caption>詳細情報</caption>
+				
+				<tr>
+					<td>
+						<span id="startTime"></span>
+					</td>
+				</tr>
+				<tr>
+					<td colspan="2" style="text-align: center;">休憩込み稼働情報</td>
+				</tr>
+				<tr>
+					<td><span id="proccec"></span></td>
+					<td>
+						<span id="pointsPerMinute2"></span>pt/m<br>
+						<span id="pointsPerHour2"></span>pt/h<br>
+					</td>
+				</tr>
+				<tr>
+					<td>
+
+					</td>
+					<td>
+						<span style="display: none;">
+							<span id="perMinute2"></span>回/m<br>
+						</span>
+						<span id="perHour2"></span>回/h<br>
+						<span id="averageTime2"></span>/回<br>
+					</td>
+				</tr>
+				<tr>
+					<td>休憩時間</td>
+					<td>稼働時間比率</td>
+				</tr>
+				<tr>
+					<td><span id="allBreakTime"></span></td>
+					<td><span id="operatingRate"></span></td>
+				</tr>
+			</table>
+			<hr>
+			<div class="setting">
+				<table class="settingTable">
+					<caption>手動入力</caption>
+					<tr>
+						<td>開始時刻：</td>
+						<td>
+							<button onclick="inputStartTime(-60)">-1h</button>
+							<button onclick="inputStartTime(-10)">-10m</button>
+							<button onclick="inputStartTime(-1)">-1m</button>
+							<button onclick="inputStartTime()" class="setNow">現在時刻</button>
+						</td>
+					</tr>
+					<tr>
+						<td>休憩時間：</td>
+						<td>
+
+							<button onclick="inputBreakTime(+60)">+1h</button>
+							<button onclick="inputBreakTime(+10)">+10m</button>
+							<button onclick="inputBreakTime(+1)">+1m</button><br>
+							<button onclick="inputBreakTime(-60)">-1h</button>
+							<button onclick="inputBreakTime(-10)">-10m</button>
+							<button onclick="inputBreakTime(-1)">-1m</button>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							回数:
+						</td>
+						<td>
+							<input type="text" id="setTimes">
+							<button onclick="inputTimes()">設定</button>
+						</td>
+					</tr>
+				</table>
+
+			
+		</div>
+		<hr>
+		<button id = "allClear" onclick="localClear()">ローカルストレージクリア(このサイトの他のページの情報も消える)</button>
+		<hr>
+		<span style="font-size: 6px;">「開始時刻」から24時間以降に再アクセスすると読み込み時にリセット</span>
+			<div style="display: none;">
+				休憩時刻:<span id="breakTime"></span><br>
+				再開時刻:<span id="restartTime"></span><br>
+				前回休憩時間:<span id="preBreakTime"></span><br>
+				累積休憩時間:<span id="totalBreakTime"></span><br>
+				休憩中時間:<span id="nowBreakTime"></span><br>
+				休憩時間:<br>
+				稼働時間:<span id="opeTime"></span><br>
+				<button onclick="localSave()">保存</button>
+				<button onclick="localLoad()">読込</button>
+				<button onclick="localRemove()">削除</button>
+			</div>
+		</div>
+	</body>
+</html>
